@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 cd ~
 mkdir .vim
 
@@ -8,5 +10,3 @@ cp .vim/colors/distinguished/colors/distinguished.vim .vim/colors/distinguished.
 
 # plugin - surround
 git clone https://github.com/tpope/vim-surround.git .vim/bundle/surround
-
-source ~/
