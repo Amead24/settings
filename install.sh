@@ -12,7 +12,7 @@ rm -rf distinguished
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 
 # update my preferences - must git clone as `setup`
-cp ~/setup/config/settings.vim .vim_runtime/my_configs.vim
+cp setup/my_configs.vim .vim_runtime/my_configs.vim
 
 # install everything
 sh ~/.vim_runtime/install_awesome_vimrc.sh
