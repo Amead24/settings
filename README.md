@@ -1,2 +1,2 @@
-# vim_settings
-my preferred vim settings
+# Settings
+Used when on new boxes.
