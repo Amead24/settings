@@ -12,10 +12,11 @@ rm -rf distinguished/
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 
 # update my preferences
-cp -rf vim.conf ~/.vim_runtime/my_configs.vim
+mv vim.conf ~/.vim_runtime/my_configs.vim
 
 # install everything
 sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 # copy over tmux configuration
-cp -rf tmux.conf ~/.tmux.conf
+rm ~/.tmux.conf
+mv tmux.conf ~/.tmux.conf
