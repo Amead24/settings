@@ -8,14 +8,12 @@ mkdir ~/.vim
 # sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 # colorscheme - distinguished
-cp ./colors/ ~/.vim/colors/
+cp -R ./colors/. ~/.vim/colors/
 
 # update my preferences
-cp ./vim.conf ~/.vimrc
-source ~/.vimrc
+echo 'source ./vim-conf.vim' > ~/.vimrc
 
 # copy over tmux configuration
 cp ./tmux.conf ~/.tmux.conf
-source ~/.tmux.conf
 
 cd ~
