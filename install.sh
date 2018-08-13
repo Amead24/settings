@@ -2,7 +2,7 @@
 rm -rf ~/.vim*
 mkdir ~/.vim
 
-# colorscheme - distinguished 
+# colorscheme - distinguished
 git clone https://github.com/Lokaltog/vim-distinguished.git ~/distinguished
 cp --parents ~/distinguished/colors/distinguished.vim ~/.vim/colors/distinguished.vim
 rm -rf ~/distinguished/
@@ -18,3 +18,5 @@ sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 # copy over tmux configuration
 cp ./tmux.conf ~/.tmux.conf
+
+cd ~
