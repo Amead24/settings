@@ -1,18 +1,52 @@
-"""""""""""""""""""""
-" Key Bindings
-"""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Vundle Setup                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Input all of your Plugins after this line
+
+" Python Plugins "
+Plugin 'fisadev/vim-isort'
+Plugin 'ambv/black'
+Plugin 'chr4/nginx.vim'
+
+" Rust Plugins "
+Plugin 'wting/rust.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Plugin Setup                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Key Bindings                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set pastetoggle=<F10>
 
 
-"""""""""""""""""""""
-" Filetypes
-"""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    Filetypes                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead,BufEnter *.ts set ft=javascript
+au BufNewFile,BufRead,BufEnter *.cs set ft=javascript
 
 
-"""""""""""""""""""""
-" Colors
-"""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Color Schemes                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufNewFile,BufRead,BufEnter *.ts set t_Co=256
 autocmd BufNewFile,BufRead,BufEnter *.js set t_Co=256
 
@@ -20,9 +54,9 @@ autocmd BufNewFile,BufRead,BufEnter *.ts colorscheme distinguished
 autocmd BufNewFile,BufRead,BufEnter *.ts colorscheme distinguished
 
 
-"""""""""""""""""""""
-" Open & Close Containers
-"""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              Open & Close Containers                           "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i

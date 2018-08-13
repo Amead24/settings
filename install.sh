@@ -2,16 +2,13 @@
 rm -rf ~/.vim*
 mkdir ~/.vim
 
-# # complete setup - awesome vim
-# git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-# # install everything
-# sh ~/.vim_runtime/install_awesome_vimrc.sh
-
 # colorscheme - distinguished
 cp -R ./colors/. ~/.vim/colors/
 
-# update my preferences
+# Clone and install Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo 'source ./vim-conf.vim' > ~/.vimrc
+vim +PluginInstall +qall
 
 # copy over tmux configuration
 cp ./tmux.conf ~/.tmux.conf
