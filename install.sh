@@ -50,6 +50,8 @@ if [[ "$1" == "with_binary" ]]; then
 	build_binary
 fi
 
+# rustup component addrustfmt-preview
+
 # Clone and install Vundle
 cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
 echo 'Downloading and Installing Vundle...'

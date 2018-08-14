@@ -27,7 +27,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
 
 " Rust Plugins "
-Plugin 'wting/rust.vim'
+Plugin 'rust-lang/rust.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -40,13 +40,15 @@ filetype plugin indent on    " required
 " Jedi - Autocompletion for Python "
 let g:jedi#popup_on_dot = 0
 let g:jedi#use_splits_not_buffers = "bottom"
-" autocmd FileType python setlocal completeopt-=preview # Turn off Preview
 
 " SuperTab - Autocompletion set to <Tab> "
 let g:SuperTabDefaultCompletionType = "context"
 
 " Pydocstrings - Autocompletion for Python Docstrings "
 nmap <silent> <leader>ds <Plug>(pydocstring)
+
+" Rust-Lang - Formatting & Autocompletion "
+let g:rustfmt_autosave = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Key Bindings                                 "
@@ -60,14 +62,8 @@ set pastetoggle=<F12>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                    Filetypes                                   "
+"                                   Global Config                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin on
-syntax on
-
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal!g'\"" | endif
-
 " Remove all backups "
 set nobackup
 set nowb
@@ -77,6 +73,17 @@ set noswapfile
 set ai
 set si
 set wrap
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    Filetypes                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype plugin on
+syntax on
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal!g'\"" | endif
+
 
 " Javascript "
 au BufNewFile,BufRead,BufEnter *.ts set ft=javascript
