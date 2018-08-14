@@ -1,57 +1,62 @@
 #!/bin/bash
 
-rm -rf ~/.vim*
+rm -rf ~/.vim* ~/vim*
 
-sudo apt-get remove --purge vim vim-runtime vim-gnome vim-tiny vim-gui-common -y
- 
-sudo apt-get install liblua5.1-dev luajit libluajit-5.1 python-dev ruby-dev libperl-dev libncurses5-dev libatk1.0-dev libx11-dev libxpm-dev libxt-dev -y
+# add library configure support here
+sudo apt-get install -y python-dev python3-dev
+
+sudo apt-get install -y \
+	libncurses5-dev libgnome2-dev libgnomeui-dev \
+	libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+	libcairo2-dev libx11-dev libxpm-dev libxt-dev
+
+sudo apt remove -y vim vim-runtime gvim
+sudo apt remove -y vim-tiny vim-common vim-gui-common vim-nox
+sudo upgrade
 
 #Optional: so vim can be uninstalled again via `dpkg -r vim`
-sudo apt-get install checkinstall -y
+# sudo apt-get install -y checkinstall 
 
 sudo rm -rf /usr/local/share/vim /usr/bin/vim
 
 cd ~
 git clone https://github.com/vim/vim
 cd vim
-git pull && git fetch
-
-#In case Vim was already installed
-cd src
-make distclean
-cd ..
 
 ./configure \
---enable-multibyte \
---with-ruby-command=/usr/local/bin/ruby \
---enable-pythoninterp=dynamic \
---with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
---enable-python3interp \
---with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
---enable-cscope \
---enable-gui=auto \
---with-features=huge \
---with-x \
---enable-fontset \
---enable-largefile \
---disable-netbeans \
---with-compiledby="amead24" \
---enable-fail-if-missing
+	--with-features=huge \
+	--enable-multibyte \
+	--enable-pythoninterp=yes \
+	--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+	--enable-python3-interp=yes \
+	--with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
+	--enable-gui=gtk2 \
+	--enable-cscope \
+	--with-compiledby="amead24" \
+	--prefix=/usr/local
 
-make && sudo make install
+make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
+sudo make install
 
-cd ~/settings
-mkdir ~/.vim
-
-# colorschemes
-cp -R ./colors/. ~/.vim/colors/
+sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 1
+sudo update-alternatives --set editor /usr/local/bin/vim
+sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 1
+sudo update-alternatives --set vi /usr/local/bin/vim
 
 # Clone and install Vundle
+cd ~
+echo 'Downloading and Installing Vundle'
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-echo 'source ./vim-conf.vim' > ~/.vimrc
 vim +PluginInstall +qall
 
+# Copy over vim configuration 
+cd ~/settings
+echo 'Copying personal vim settings'
+cp -R ./colors/. ~/.vim/colors/
+cp ./vim-conf.vim ~/.vimrc
+
 # copy over tmux configuration
+echo 'Copying personal tmux settings'
 cp ./tmux.conf ~/.tmux.conf
 
 cd ~
