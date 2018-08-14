@@ -48,8 +48,11 @@ build_binary(){
 
 if [[ "$1" == "with_binary" ]]; then
 	build_binary
+else
+	cp ~/settings/vim.bin /usr/local/bin/vim
 fi
 
+# TODO: create flags for installing with rust
 # rustup component addrustfmt-preview
 
 # Clone and install Vundle
