@@ -1,4 +1,15 @@
 #!/bin/bash
+Usage() {
+	( echo "
+	-b | --build-binary : to create vim81 binary with python3
+	-p | --build-python : to create python dependencies for vim-python
+	-r | --build-rust   : to create rust depenencies for vim-rust
+	
+	"
+	) 1>&2
+	exit 1
+}
+
 
 build_binary(){
 	rm -rf ~/.vim* ~/vim*
@@ -38,37 +49,69 @@ build_binary(){
 
 	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
 	sudo make install
-
-	sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 1
-	sudo update-alternatives --set editor /usr/local/bin/vim
-	sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 1
-	sudo update-alternatives --set vi /usr/local/bin/vim
 }
 
 
-if [[ "$1" == "with_binary" ]]; then
-	build_binary
-else
-	cp ~/settings/vim.bin /usr/local/bin/vim
-fi
+build_core(){
+	VIMVERSION=$(vim --version | head -1 | cut -d ' ' -f 5)
+	VIMHASPYTHON3=$(vim --version | grep -c '+python3')
+	if [[ $VIMVERSION != 8.1 || $VIMHASPYTHON3 != "1" ]]; then
+		cp ~/settings/vim.bin /usr/local/bin/vim
+	fi
 
-# TODO: create flags for installing with rust
-# rustup component addrustfmt-preview
+	# Clone and install Vundle
+	cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
+	echo 'Downloading and Installing Vundle...'
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
 
-# Clone and install Vundle
-cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
-echo 'Downloading and Installing Vundle...'
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
+	# Copy over vim configuration 
+	cd ~/settings
+	echo 'Copying personal vim settings...'
+	cp -R ./colors/. ~/.vim/colors/
+	cp ./vim-conf.vim ~/.vimrc
 
-# Copy over vim configuration 
-cd ~/settings
-echo 'Copying personal vim settings...'
-cp -R ./colors/. ~/.vim/colors/
-cp ./vim-conf.vim ~/.vimrc
+	# copy over tmux configuration
+	echo 'Copying personal tmux settings...'
+	cp ./tmux.conf ~/.tmux.conf
 
-# copy over tmux configuration
-echo 'Copying personal tmux settings...'
-cp ./tmux.conf ~/.tmux.conf
+	cd ~
+}
 
-cd ~
+
+build_python(){
+	python -m pip install flake8
+	python -m pip install isort
+}
+
+
+build_rust(){
+	rustup component addrustfmt-preview
+}
+
+
+while [ "$1" != "" ]; do
+	case $1 in
+		-b | --build-binary)
+			shift
+			echo 'Building vim binary with 8.1 and python3 support'
+			build_binary
+			;;
+		-p | --build-python)
+			shift
+			echo 'Building python dependencies for vim'
+			build_python
+			;;
+		-r | --build-rust)
+			shift
+			echo 'Building rustlang dependencies for vim'
+			build_rust
+			;;
+		*)
+			Usage
+			;;
+	esac
+	shift
+done
+
+build_core

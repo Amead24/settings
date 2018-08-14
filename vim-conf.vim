@@ -44,6 +44,11 @@ let g:jedi#use_splits_not_buffers = "bottom"
 " SuperTab - Autocompletion set to <Tab> "
 let g:SuperTabDefaultCompletionType = "context"
 
+" Flake8 & Black - Python formatting "
+let g:flake8_show_in_file = 1
+autocmd BufWritePre *.py execute ':Black'
+autocmd BufWritePost *.py call Flake8()
+
 " Pydocstrings - Autocompletion for Python Docstrings "
 nmap <silent> <leader>ds <Plug>(pydocstring)
 
