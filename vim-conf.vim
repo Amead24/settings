@@ -26,6 +26,10 @@ Plugin 'chr4/nginx.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
 
+" Javascript "
+Plugin 'posva/vim-vue'
+Plugin 'alvan/vim-closetag'
+
 " Rust Plugins "
 Plugin 'rust-lang/rust.vim'
 
@@ -52,6 +56,10 @@ autocmd BufWritePost *.py call Flake8()
 " Pydocstrings - Autocompletion for Python Docstrings "
 nmap <silent> <leader>ds <Plug>(pydocstring)
 
+" closetag - closing tags automatically "
+let g:closetag_filenames = '*.html,*.vue'
+let g:closetag_filetypes = '*.html,*.vue'
+
 " Rust-Lang - Formatting & Autocompletion "
 let g:rustfmt_autosave = 1
 
@@ -59,8 +67,8 @@ let g:rustfmt_autosave = 1
 "                                   Key Bindings                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = "\\"
-nmap <leader>w :w!<cr>
-nmap <leader>q :wq!<cr>
+nmap <S-L> :w!<cr>
+nmap <S-K> :wq!<cr>
 
 set backspace=2
 set pastetoggle=<F12>
@@ -69,6 +77,9 @@ set pastetoggle=<F12>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Global Config                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Number of lines to remember "
+set history=500
+
 " Remove all backups "
 set nobackup
 set nowb
@@ -93,6 +104,12 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal!g'
 " Javascript "
 au BufNewFile,BufRead,BufEnter *.ts set ft=javascript
 au BufNewFile,BufRead,BufEnter *.cs set ft=javascript
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+
+" Vue "
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+autocmd FileType vue syntax sync fromstart
+autocmd FileType vue setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 " Python "
 au FileType python let python_highlight_all = 1
