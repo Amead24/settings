@@ -29,6 +29,7 @@ Plugin 'heavenshell/vim-pydocstring'
 " Javascript "
 Plugin 'posva/vim-vue'
 Plugin 'alvan/vim-closetag'
+Plugin 'larsbs/vimterial'
 
 " Rust Plugins "
 Plugin 'rust-lang/rust.vim'
