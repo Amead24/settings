@@ -13,14 +13,15 @@ Usage() {
 
 build_binary(){
 	rm -rf ~/.vim* ~/vim*
-	
+
 	# add library configure support here
 	echo 'Installing and removing dependencies...'
 	sudo apt-get install -y python-dev python3-dev
 
 	sudo apt-get install -y \
 		libncurses5-dev libgnome2-dev libgnomeui-dev \
-		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+		libgtk3.0-dev \ # libgtk2.0-dev libatk1.0-dev \
+		libbonoboui2-dev \
 		libcairo2-dev libx11-dev libxpm-dev libxt-dev
 
 	sudo apt remove -y vim vim-runtime gvim
@@ -114,4 +115,4 @@ while [ "$1" != "" ]; do
 	shift
 done
 
-build_core
+sudo build_core
