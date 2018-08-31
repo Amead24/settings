@@ -52,6 +52,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " Flake8 & Black - Python formatting "
 let g:flake8_show_in_file = 1
 autocmd BufWritePre *.py execute ':Black'
+autocmd BufWritePre *.py execute ':Isort'
 autocmd BufWritePost *.py call Flake8()
 
 " Pydocstrings - Autocompletion for Python Docstrings "
@@ -72,19 +73,15 @@ nmap <S-L> :w!<cr>
 nmap <S-K> :wq!<cr>
 
 set backspace=2
-set pastetoggle=<F12>
+
+set pastetoggle=<S-P>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Global Config                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Number of lines to remember "
-set history=500
-
-" Remove all backups "
-set nobackup
-set nowb
-set noswapfile
+set history=1500
 
 " Smart indenting "
 set ai
