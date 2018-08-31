@@ -1,0 +1,11 @@
+"""
+{{_header_}}
+
+    Parameters:
+    -----------
+  {{_args_}}:
+
+    Returns:
+    --------
+  {{_return_type_}}:
+"""
