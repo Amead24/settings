@@ -54,9 +54,15 @@ build_binary(){
 
 
 build_core(){
-	VIMVERSION=$(vim --version | head -1 | cut -d ' ' -f 5)
-	VIMHASPYTHON3=$(vim --version | grep -c '+python3')
-	if [[ $VIMVERSION != 8.1 || $VIMHASPYTHON3 != "1" ]]; then
+	OS_VERSION=$(lsb_release -a | grep -c '18.04.1')
+	if [[ OS_VERSION != "1" ]]; then
+		echo 'The binary currently only supports Ubuntu 18+'
+		exit 111;
+	fi
+
+	VIM_VERSION=$(vim --version | head -1 | cut -d ' ' -f 5)
+	VIM_HAS_PYTHON3=$(vim --version | grep -c '+python3')
+	if [[ $VIM_VERSION != 8.1 || $VIM_HAS_PYTHON3 != "1" ]]; then
 		cp ~/settings/vim.bin /usr/local/bin/vim
 	fi
 
