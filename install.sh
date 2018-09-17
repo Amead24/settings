@@ -1,4 +1,5 @@
 #!/bin/bash
+
 Usage() {
 	( echo "
 	-b | --build-binary : to create vim81 binary with python3
@@ -55,7 +56,7 @@ build_binary(){
 
 build_core(){
 	OS_VERSION=$(lsb_release -a | grep -c '18.04.1')
-	if [[ OS_VERSION != "1" ]]; then
+	if [[ OS_VERSION -ne 1 ]]; then
 		echo 'The binary currently only supports Ubuntu 18+'
 		exit 111;
 	fi
@@ -121,4 +122,4 @@ while [ "$1" != "" ]; do
 	shift
 done
 
-sudo build_core
+build_core
