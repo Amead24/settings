@@ -67,8 +67,8 @@ let g:closetag_filetypes = '*.html,*.vue'
 let g:rustfmt_autosave = 1
 
 " CPP "
-autocmd BufWritePre *.c execute ':%!astyle'
-autocmd BufWritePre *.cpp execute ':%!astyle'
+""autocmd BufWritePost *.c execute ':%!astyle --mode=c --style=ansi -s2'
+""autocmd BufWritePost *.cpp execute ':%!astyle --mode=c --style=ansi -s2'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Key Bindings                                 "
@@ -91,9 +91,10 @@ vnoremap > >gv
 set history=1500
 
 " Smart indenting "
-set ai
-set si
+set autoindent
+set smartindent
 set wrap
+set number
 
 " continue where you last left off "
 if has("autocmd")
@@ -121,9 +122,11 @@ au FileType python set colorcolumn=80
 au FileType python highlight ColorColumn ctermbg=5
 au FileType python syn keyword pythonDecorator True None False self
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-
 au BufNewFile,BufRead *.jinja set syntax=htmljinja
 
+" CPP "
+autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Color Schemes                                 "
