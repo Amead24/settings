@@ -26,13 +26,17 @@ Plugin 'chr4/nginx.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
 
-" Javascript "
+" Javascript Plugins "
 Plugin 'posva/vim-vue'
 Plugin 'alvan/vim-closetag'
 Plugin 'larsbs/vimterial'
 
 " Rust Plugins "
 Plugin 'rust-lang/rust.vim'
+
+" C/CPP Plugins "
+Plugin 'rhysd/vim-clang-format'
+Plugin 'sheerun/vim-polyglot'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -64,6 +68,21 @@ let g:closetag_filetypes = '*.html,*.vue'
 
 " Rust-Lang - Formatting & Autocompletion "
 let g:rustfmt_autosave = 1
+
+" Clang "
+let g:clang_format#code_style = "llvm"
+let g:clang_format#style_options = {
+      \ "AllowShortFunctionsOnASingleLine": "Empty",
+      \ "AlwaysBreakTemplateDeclarations": "true",
+      \ "BreakBeforeBraces": "Allman",
+      \ "BreakConstructorInitializersBeforeComma": "true",
+      \ "IndentCaseLabels": "true",
+      \ "IndentWidth":     4,
+      \ "MaxEmptyLinesToKeep": 2,
+      \ "NamespaceIndentation": "Inner",
+      \ "ObjCBlockIndentWidth": 4,
+      \ "TabWidth": 4}
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Key Bindings                                 "

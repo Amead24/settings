@@ -5,7 +5,7 @@ Usage() {
 	-b | --build-binary : to create vim81 binary with python3
 	-p | --build-python : to create python dependencies for vim-python
 	-r | --build-rust   : to create rust depenencies for vim-rust
-	
+	-c | --build-cpp    : to create cpp depenencies for ???	
 	"
 	) 1>&2
 	exit 1
@@ -17,20 +17,15 @@ build_binary(){
 
 	# add library configure support here
 	echo 'Installing and removing dependencies...'
-	sudo apt-get install -y python-dev python3-dev
-
-	sudo apt-get install -y \
-		libncurses5-dev libgnome2-dev libgnomeui-dev \
-		libgtk3.0-dev \ # libgtk2.0-dev libatk1.0-dev \
-		libbonoboui2-dev \
-		libcairo2-dev libx11-dev libxpm-dev libxt-dev
+	sudo apt install -y \
+	libncurses5-dev libgnome2-dev libgnomeui-dev \
+	libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+	libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
+	python3-dev ruby-dev lua5.1 liblua5.1-dev libperl-dev git
 
 	sudo apt remove -y vim vim-runtime gvim
 	sudo apt remove -y vim-tiny vim-common vim-gui-common vim-nox
 	sudo upgrade
-
-	#Optional: so vim can be uninstalled again via `dpkg -r vim`
-	# sudo apt-get install -y checkinstall 
 
 	sudo rm -rf /usr/local/share/vim /usr/bin/vim
 
@@ -50,6 +45,7 @@ build_binary(){
 		--prefix=/usr/local
 
 	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
+	cd ~/vim
 	sudo make install
 }
 
@@ -71,7 +67,7 @@ build_core(){
 	cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
 	echo 'Downloading and Installing Vundle...'
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-	vim +PluginInstall +qall
+        sudo vim +PluginInstall +qall
 
 	# Copy over vim configuration 
 	cd ~/settings
@@ -114,6 +110,10 @@ while [ "$1" != "" ]; do
 			shift
 			echo 'Building rustlang dependencies for vim'
 			build_rust
+			;;
+		-c | --build-cpp)
+			shift
+			echo 'Building cpp dependencies for vim'
 			;;
 		*)
 			Usage
