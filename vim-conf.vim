@@ -34,10 +34,6 @@ Plugin 'larsbs/vimterial'
 " Rust Plugins "
 Plugin 'rust-lang/rust.vim'
 
-" C/CPP Plugins "
-Plugin 'rhysd/vim-clang-format'
-Plugin 'sheerun/vim-polyglot'
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -69,20 +65,9 @@ let g:closetag_filetypes = '*.html,*.vue'
 " Rust-Lang - Formatting & Autocompletion "
 let g:rustfmt_autosave = 1
 
-" Clang "
-let g:clang_format#code_style = "llvm"
-let g:clang_format#style_options = {
-      \ "AllowShortFunctionsOnASingleLine": "Empty",
-      \ "AlwaysBreakTemplateDeclarations": "true",
-      \ "BreakBeforeBraces": "Allman",
-      \ "BreakConstructorInitializersBeforeComma": "true",
-      \ "IndentCaseLabels": "true",
-      \ "IndentWidth":     4,
-      \ "MaxEmptyLinesToKeep": 2,
-      \ "NamespaceIndentation": "Inner",
-      \ "ObjCBlockIndentWidth": 4,
-      \ "TabWidth": 4}
-
+" CPP "
+autocmd BufWritePre *.c execute ':%!astyle' 
+autocmd BufWritePre *.cpp execute ':%!astyle'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Key Bindings                                 "
@@ -93,7 +78,7 @@ nmap <S-K> :wq!<cr>
 
 set backspace=2
 
-set pastetoggle=<S-P>
+set pastetoggle=<F12>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -114,9 +99,10 @@ set wrap
 filetype plugin on
 syntax on
 
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal!g'\"" | endif
-
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
 
 " Javascript "
 au BufNewFile,BufRead,BufEnter *.ts set ft=javascript

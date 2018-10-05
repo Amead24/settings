@@ -79,6 +79,8 @@ build_core(){
 	echo 'Copying personal tmux settings...'
 	cp ./tmux.conf ~/.tmux.conf
 
+	sudo chown $(id -u):$(id -g) ~/.viminfo
+
 	cd ~
 }
 
@@ -93,6 +95,9 @@ build_rust(){
 	rustup component addrustfmt-preview
 }
 
+build_cpp(){
+	sudo apt-get install astyle
+}
 
 while [ "$1" != "" ]; do
 	case $1 in
