@@ -37,6 +37,7 @@ Plugin 'rust-lang/rust.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+syntax on
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -66,7 +67,7 @@ let g:closetag_filetypes = '*.html,*.vue'
 let g:rustfmt_autosave = 1
 
 " CPP "
-autocmd BufWritePre *.c execute ':%!astyle' 
+autocmd BufWritePre *.c execute ':%!astyle'
 autocmd BufWritePre *.cpp execute ':%!astyle'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,6 +81,8 @@ set backspace=2
 
 set pastetoggle=<F12>
 
+vnoremap < <gv
+vnoremap > >gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Global Config                                "
@@ -92,18 +95,15 @@ set ai
 set si
 set wrap
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                    Filetypes                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin on
-syntax on
-
+" continue where you last left off "
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    Filetypes                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Javascript "
 au BufNewFile,BufRead,BufEnter *.ts set ft=javascript
 au BufNewFile,BufRead,BufEnter *.cs set ft=javascript
@@ -128,8 +128,6 @@ au BufNewFile,BufRead *.jinja set syntax=htmljinja
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Color Schemes                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-color darkblue
-
 " Javascript "
 autocmd BufNewFile,BufRead,BufEnter *.ts set t_Co=256
 autocmd BufNewFile,BufRead,BufEnter *.ts colorscheme distinguished
@@ -142,6 +140,9 @@ autocmd BufNewFile,BufRead,BufEnter *.cs colorscheme distinguished
 autocmd BufNewFile,BufRead,BufEnter *.py set t_Co=256
 autocmd BufNewFile,BufRead,BufEnter *.py colorscheme distinguished
 
+" CPP "
+autocmd BufNewFile,BufRead,BufEnter *.cpp set t_Co=256
+autocmd BufNewFile,BufRead,BufEnter *.cpp colorscheme distinguished
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Open & Close Containers                           "
@@ -187,10 +188,18 @@ function! QuoteDelim(char)
   endif
 endf
 
+function! <SID>StripTrailingWhitespaces()
+	let l = line(".")
+	let c = col(".")
+	%s/\s\+$//e
+	call cursor(l, c)
+endfun
+
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Auto-Detect Changes                           "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup myvimrc
 	au!
 	autocmd BufWritePost .vimrc source ~/.vimrc
-augroup END	
+augroup END
