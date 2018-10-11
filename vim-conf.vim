@@ -34,6 +34,9 @@ Plugin 'larsbs/vimterial'
 " Rust Plugins "
 Plugin 'rust-lang/rust.vim'
 
+" Go Plugins "
+Plugin 'faith/vim-go'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
