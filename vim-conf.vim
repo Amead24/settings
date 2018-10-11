@@ -73,6 +73,11 @@ let g:rustfmt_autosave = 1
 ""autocmd BufWritePost *.c execute ':%!astyle --mode=c --style=ansi -s2'
 ""autocmd BufWritePost *.cpp execute ':%!astyle --mode=c --style=ansi -s2'
 
+" GO "
+autocmd BufWritePre *.go execute ':GoLint'
+autocmd BufWritePre *.go execute ':GoVet'
+autocmd BufWritePre *.go execute ':GoErrCheck'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Key Bindings                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
