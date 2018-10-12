@@ -141,11 +141,11 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Javascript "
 autocmd BufNewFile,BufRead,BufEnter *.ts set t_Co=256
-autocmd BufNewFile,BufRead,BufEnter *.ts colorscheme distinguished
+autocmd BufNewFile,BufRead,BufEnter *.ts colorscheme blue
 autocmd BufNewFile,BufRead,BufEnter *.js set t_Co=256
-autocmd BufNewFile,BufRead,BufEnter *.js colorscheme distinguished
+autocmd BufNewFile,BufRead,BufEnter *.js colorscheme blue
 autocmd BufNewFile,BufRead,BufEnter *.cs set t_Co=256
-autocmd BufNewFile,BufRead,BufEnter *.cs colorscheme distinguished
+autocmd BufNewFile,BufRead,BufEnter *.cs colorscheme blue
 
 " Python "
 autocmd BufNewFile,BufRead,BufEnter *.py set t_Co=256

@@ -5,7 +5,7 @@ Usage() {
 	-b | --build-binary : to create vim81 binary with python3
 	-p | --build-python : to create python dependencies for vim-python
 	-r | --build-rust   : to create rust depenencies for vim-rust
-	-c | --build-cpp    : to create cpp depenencies for ???	
+	-c | --build-cpp    : to create cpp depenencies for ???
 	"
 	) 1>&2
 	exit 1
@@ -69,17 +69,21 @@ build_core(){
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
         sudo vim +PluginInstall +qall
 
-	# Copy over vim configuration 
+	# Copy over vim configuration
 	cd ~/settings
 	echo 'Copying personal vim settings...'
 	cp -R ./colors/. ~/.vim/colors/
 	cp ./vim-conf.vim ~/.vimrc
+	sudo chown $(id -u):$(id -g) ~/.viminfo
 
 	# copy over tmux configuration
 	echo 'Copying personal tmux settings...'
 	cp ./tmux.conf ~/.tmux.conf
 
-	sudo chown $(id -u):$(id -g) ~/.viminfo
+	if grep -p 'alias tmux=' ~/.bashrc; then
+		echo 'alias tmux="tmux -2"'
+		source ~/.bashrc
+	fi
 
 	cd ~
 }
