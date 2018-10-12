@@ -73,7 +73,7 @@ build_core(){
 	cd ~/settings
 	echo 'Copying personal vim settings...'
 	cp -R ./colors/. ~/.vim/colors/
-	cp ./vim-conf.vim ~/.vimrc
+	cp ./vim.conf ~/.vimrc
 	sudo chown $(id -u):$(id -g) ~/.viminfo
 
 	# copy over tmux configuration
