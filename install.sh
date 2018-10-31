@@ -80,10 +80,13 @@ build_core(){
 	echo 'Copying personal tmux settings...'
 	cp ./tmux.conf ~/.tmux.conf
 
-	if grep -p 'alias tmux=' ~/.bashrc; then
-		echo 'alias tmux="tmux -2"'
-		source ~/.bashrc
+	cp ./bash_aliases ~/.bash_aliases
+	if grep -p '-f ~/.bash_aliases' ~/.bashrc; then
+		echo 'if [ -f ~/.bash_aliases ]; then' \
+		     '    . ~/.bash_aliases' \
+		     'fi' >> ~/.bashrc
 	fi
+	source ~/.bashrc
 
 	cd ~
 }
