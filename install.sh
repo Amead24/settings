@@ -86,6 +86,11 @@ build_core(){
 		     '    . ~/.bash_aliases' \
 		     'fi' >> ~/.bashrc
 	fi
+
+	# set default editor to vim
+	echo "export EDITOR='vim'" >> ~/.bashrc
+	echo "export VISUAL='vim'" >> ~/.bashrc
+
 	source ~/.bashrc
 
 	cd ~
