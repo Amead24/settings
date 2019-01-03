@@ -98,8 +98,17 @@ build_core(){
 
 
 build_python(){
-	python -m pip install flake8
-	python -m pip install isort
+	if dpkg -l | grep -q python; then
+		apt-get install python3
+	fi
+	
+	if dpkg -l | grep -q pip3; then
+		apt-get install pip3
+	fi
+	
+	python3 -m pip3 install black
+	python3 -m pip3 install flake8
+	python3 -m pip3 install isort
 }
 
 
