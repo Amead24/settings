@@ -106,7 +106,7 @@ build_python(){
 		sudo apt-get install python3-pip -y
 	fi
 	
-	python3 -m pip3 install black flake8 isort
+	python3 -m pip install black flake8 isort
 }
 
 
