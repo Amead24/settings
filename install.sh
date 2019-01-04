@@ -98,17 +98,15 @@ build_core(){
 
 
 build_python(){
-	if dpkg -l | grep -q python; then
-		apt-get install python3
+	if ! dpkg -l | grep -q 'python'; then
+		sudo apt-get install python3 -y
 	fi
 	
-	if dpkg -l | grep -q pip3; then
-		apt-get install pip3
+	if ! dpkg -l | grep -q pip3; then
+		sudo apt-get install python3-pip -y
 	fi
 	
-	python3 -m pip3 install black
-	python3 -m pip3 install flake8
-	python3 -m pip3 install isort
+	python3 -m pip3 install black flake8 isort
 }
 
 
