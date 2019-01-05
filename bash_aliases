@@ -16,7 +16,7 @@ alias kcgnd='kubectl get nodes -o wide'
 
 alias kcgv='kubectl get pv -o wide'
 
-alias cc='-o=\"custom-columns=:.metadata.name\"'
+alias kcl='kubectl log'
 
 # kc describe
 alias kcd='kubectl describe'
