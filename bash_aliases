@@ -16,7 +16,7 @@ alias kcgnd='kubectl get nodes -o wide'
 
 alias kcgv='kubectl get pv -o wide'
 
-alias kcl='kubectl log'
+alias kcl='kubectl logs'
 
 # kc describe
 alias kcd='kubectl describe'
