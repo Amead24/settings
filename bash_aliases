@@ -9,7 +9,7 @@ alias kcg='kubectl get'
 alias kcgpd='kubectl get pods -o wide'
 alias kcgdp='kubectl get deployments -o wide'
 alias kcgsv='kubectl get services -o wide'
-alias kcgjn='kubectl get jobs -o wide'
+alias kcgjb='kubectl get jobs -o wide'
 
 alias kcgns='kubectl get namespaces -o wide'
 alias kcgnd='kubectl get nodes -o wide'
