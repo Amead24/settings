@@ -23,7 +23,7 @@ build_core(){
 
 	# Copy over vim configuration
 	echo 'Copying personal vim settings...'
-	cp $REPO_DIR/colors/* ~/.vim/colors/*
+	cp -R $REPO_DIR/colors/* ~/.vim/colors/*
 	cp $REPO_DIR/vim.conf ~/.vimrc
 	sudo chown $(id -u):$(id -g) ~/.viminfo
 
