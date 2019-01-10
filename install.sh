@@ -21,7 +21,7 @@ build_core(){
 
         # Copy over vim configuration
         echo 'Copying personal vim settings...'
-        cp -R settings/colors/* ~/.vim/colors/*
+	cp -R settings/colors/ ~/.vim/colors/
         cp settings/vim.conf ~/.vimrc
         sudo chown $(id -u):$(id -g) ~/.viminfo
 
@@ -49,7 +49,7 @@ build_binary(){
 	sudo apt build-dep -y vim
 	
 	# Python3.6 Support
-	sudo apt-get -y install python3.6-dev
+	sudo apt-get -y install python3.6-dev libpython3.6
 
 	echo 'Reinstalling Vim from Github...'
 	sudo rm -rf ~/.vim* ~/vim*
