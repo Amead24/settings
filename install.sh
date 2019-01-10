@@ -43,29 +43,27 @@ build_core(){
 
 
 build_binary(){
-        # add library configure support here
-        echo 'Installing dependencies...'
-        sudo apt-get -y remove vim
-        sudo apt build-dep -y vim
+	# add library configure support here
+	echo 'Installing dependencies...'
+	sudo apt-get -y remove vim
+	sudo apt build-dep -y vim
 
-        echo 'Reinstalling Vim from Github...'
-        sudo rm -rf ~/.vim* ~/vim*
-        cd ~ && git clone https://github.com/vim/vim ~/.vim
-        cd ~/.vim/src && ./configure \
-                --enable-multibyte \
-                --enable-python3interp=yes \
-                --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
-                --enable-gui=auto \
-                --enable-cscope \
-                --with-x \
-                --with-compiledby="amead24" \
-                --prefix=$HOME/.vim
+	echo 'Reinstalling Vim from Github...'
+	sudo rm -rf ~/.vim* ~/vim*
+	cd ~ && git clone https://github.com/vim/vim ~/.vim
+	cd ~/.vim && ./configure \
+		--with-features=huge \
+		--enable-multibyte \
+		--enable-python3interp vi_cv_path_python3=/usr/bin/python3.5 \
+		--with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
+		--enable-gui=auto \
+		--enable-cscope \
+		--with-compiledby="amead24" \
+		--enable-fail-if-missing \
+		--prefix=/usr/local
 
-        make
-        sudo make install
-
-        mkdir -p ~/bin/ && export PATH="$HOME/bin:$PATH"
-        sudo cp $HOME/.vim/bin/vim ~/bin/vim
+	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
+	sudo make install
 }
 
 
