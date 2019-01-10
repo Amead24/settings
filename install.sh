@@ -13,15 +13,14 @@ Usage() {
 
 
 build_binary(){
-	rm -rf ~/.vim* ~/vim*
+	sudo rm -rf ~/.vim* ~/vim*
 
 	# add library configure support here
 	echo 'Installing and removing dependencies...'
-	sudo apt install -y \
-	libncurses5-dev libgnome2-dev libgnomeui-dev \
-	libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-	libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-	python3-dev ruby-dev lua5.1 liblua5.1-dev libperl-dev git
+	sudo apt-get install -y \
+		libncurses5-dev libgnome2-dev libgnomeui-dev \
+		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev
 
 	sudo apt remove -y vim vim-runtime gvim
 	sudo apt remove -y vim-tiny vim-common vim-gui-common vim-nox
@@ -38,7 +37,7 @@ build_binary(){
 		--with-features=huge \
 		--enable-multibyte \
 		--enable-python3interp \
-		--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu \
+		--with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
 		--enable-gui=auto \
 		--enable-cscope \
 		--with-compiledby="amead24" \
