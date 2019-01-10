@@ -15,18 +15,6 @@ Usage() {
 build_core(){
 	REPO_DIR=$PWD
 	
-        # this still doesn't prove vim was compiled with python3 support
-	# probably should do this inevitably
-	VIM_VERSION=$(vim --version | head -1 | cut -d ' ' -f 5)
-	VIM_HAS_PYTHON3=$(vim --version | grep -c '+python3')
-	if [[ $VIM_VERSION != 8.1 || $VIM_HAS_PYTHON3 != "1" ]]; then
-		mkdir -p ~/bin
-		cp ~/settings/vim.bin ~/bin/vim
-		if ! echo $PATH | grep -q $HOME/bin; then
-			echo -e "export PATH='$HOME/bin:$PATH'\n" >> ~/.bashrc
-		fi
-	fi
-	
 	# Clone and install Vundle
 	echo 'Downloading and Installing Vundle...'
 	cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
