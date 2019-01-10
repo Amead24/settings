@@ -49,7 +49,8 @@ build_binary(){
 	sudo apt build-dep -y vim
 	
 	# Python3.6 Support
-	sudo apt-get -y install python3.6-dev libpython3.6
+	sudo add-apt-repository -y ppa:deadsnakes/ppa
+	sudo apt-get install -y python3.6-dev libpython3.6
 
 	echo 'Reinstalling Vim from Github...'
 	sudo rm -rf ~/.vim* ~/vim*
