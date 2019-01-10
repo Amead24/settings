@@ -45,8 +45,8 @@ build_core(){
 build_binary(){
         # add library configure support here
         echo 'Installing dependencies...'
-        sudo apt-get remove vim
-        sudo apt build-dep vim
+        sudo apt-get -y remove vim
+        sudo apt build-dep -y vim
 
         echo 'Reinstalling Vim from Github...'
         sudo rm -rf ~/.vim* ~/vim*
