@@ -64,7 +64,7 @@ build_binary(){
         make
         sudo make install
 
-        mkdir -p ~/bin/ && export $PATH="$HOME/bin:$PATH"
+        mkdir -p ~/bin/ && export PATH="$HOME/bin:$PATH"
         sudo cp $HOME/.vim/bin/vim ~/bin/vim
 }
 
