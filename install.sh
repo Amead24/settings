@@ -12,39 +12,6 @@ Usage() {
 }
 
 
-build_binary(){
-	sudo rm -rf ~/.vim* ~/vim*
-	sudo rm -rf /usr/local/share/vim /usr/bin/vim
-	
-	# add library configure support here
-	echo 'Installing and removing dependencies...'
-	sudo apt-get install -y \
-		libncurses5-dev libgnome2-dev libgnomeui-dev \
-		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev
-
-	sudo apt remove -y \
-		vim vim-runtime gvim vim-tiny vim-common vim-gui-common vim-nox
-	
-	sudo update -y
-
-	echo 'Cloning vim from github...'
-	cd ~ &&	git clone https://github.com/vim/vim ~/.vim
-	cd ~/.vim && ./configure \
-		--with-features=huge \
-		--enable-multibyte \
-		--enable-python3interp \
-		--with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
-		--enable-gui=auto \
-		--enable-cscope \
-		--with-compiledby="amead24" \
-		--prefix=/usr/local
-
-	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
-	cd ~/vim && sudo make install
-}
-
-
 build_core(){
         # this still doesn't prove vim was compiled with python3 support
 	# probably should do this inevitably
@@ -57,7 +24,7 @@ build_core(){
 			echo -e "export PATH='$HOME/bin:$PATH'\n" >> ~/.bashrc
 		fi
 	fi
-
+	
 	# Clone and install Vundle
 	cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
 	echo 'Downloading and Installing Vundle...'
@@ -88,6 +55,37 @@ build_core(){
 }
 
 
+build_binary(){
+	# add library configure support here
+	echo 'Installing and removing dependencies...'
+	sudo apt-get install -y \
+		libncurses5-dev libgnome2-dev libgnomeui-dev \
+		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev
+
+	sudo apt remove -y \
+		vim vim-runtime gvim vim-tiny vim-common vim-gui-common vim-nox
+	
+	sudo update -y
+
+	echo 'Reinstalling vim from github...'
+	sudo rm -rf ~/.vim* ~/vim*
+	cd ~ &&	git clone https://github.com/vim/vim ~/.vim
+	cd ~/.vim && ./configure \
+		--with-features=huge \
+		--enable-multibyte \
+		--enable-python3interp \
+		--with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
+		--enable-gui=auto \
+		--enable-cscope \
+		--with-compiledby="amead24" \
+		--prefix=/usr/local
+
+	make
+	cd ~/vim && sudo make install
+}
+
+
 build_python(){
 	if ! dpkg -l | grep -q 'python'; then
 		sudo apt-get install python3 -y
@@ -105,9 +103,11 @@ build_rust(){
 	rustup component addrustfmt-preview
 }
 
+
 build_cpp(){
 	sudo apt-get install astyle
 }
+
 
 while [ "$1" != "" ]; do
 	case $1 in
