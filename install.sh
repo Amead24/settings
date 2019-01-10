@@ -13,7 +13,7 @@ Usage() {
 
 
 build_core(){
-	CWD=$PWD
+	REPO_DIR=$PWD
 	
         # this still doesn't prove vim was compiled with python3 support
 	# probably should do this inevitably
@@ -28,22 +28,22 @@ build_core(){
 	fi
 	
 	# Clone and install Vundle
-	cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
 	echo 'Downloading and Installing Vundle...'
+	cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
         sudo vim +PluginInstall +qall
 
 	# Copy over vim configuration
 	echo 'Copying personal vim settings...'
-	cp $CWD/colors/* ~/.vim/colors/*
-	cp $CWD/vim.conf ~/.vimrc
+	cp $REPO_DIR/colors/* ~/.vim/colors/*
+	cp $REPO_DIR/vim.conf ~/.vimrc
 	sudo chown $(id -u):$(id -g) ~/.viminfo
 
 	# copy over tmux configuration
 	echo 'Copying personal tmux settings...'
-	cp $CWD/tmux.conf ~/.tmux.conf
+	cp $REPO_DIR/tmux.conf ~/.tmux.conf
 
-	cp $CWD/bash_aliases ~/.bash_aliases
+	cp $REPO_DIR/bash_aliases ~/.bash_aliases
 	if grep -p '-f ~/.bash_aliases' ~/.bashrc; then
 		echo -e 'if [ -f ~/.bash_aliases ]; then\n\t. ~/.bash_aliases\nfi' >> ~/.bashrc
 	fi
@@ -52,11 +52,13 @@ build_core(){
 	echo "export EDITOR='vim'" >> ~/.bashrc
 	echo "export VISUAL='vim'" >> ~/.bashrc
 
-	source ~/.bashrc
+	source ~/.bashrc && cd $REPO_DIR
 }
 
 
 build_binary(){
+	REPO_DIR=$PWD
+	
 	# add library configure support here
 	echo 'Installing dependencies...'
 	sudo apt-get install -y \
@@ -81,6 +83,8 @@ build_binary(){
 
 	make
 	sudo make install
+	
+	cd $REPO_DIR
 }
 
 
