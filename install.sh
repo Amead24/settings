@@ -66,7 +66,7 @@ build_binary(){
 		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev
 		
-	sudo update -y
+	sudo apt-get update -y
 
 	echo 'Reinstalling Vim from Github...'
 	sudo rm -rf ~/.vim* ~/vim*
