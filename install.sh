@@ -47,6 +47,7 @@ build_binary(){
 	echo 'Installing dependencies...'
 	sudo apt-get -y remove vim
 	sudo apt build-dep -y vim
+	sudo apt-get install libpython3.6
 
 	echo 'Reinstalling Vim from Github...'
 	sudo rm -rf ~/.vim* ~/vim*
@@ -54,8 +55,8 @@ build_binary(){
 	cd ~/.vim && ./configure \
 		--with-features=huge \
 		--enable-multibyte \
-		--enable-python3interp vi_cv_path_python3=/usr/bin/python3.5 \
-		--with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
+		--enable-python3interp vi_cv_path_python3=/usr/bin/python3.6 \
+		--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu \
 		--enable-gui=auto \
 		--enable-cscope \
 		--with-compiledby="amead24" \
