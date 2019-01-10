@@ -28,10 +28,9 @@ build_core(){
         echo 'Copying personal tmux settings...'
         cp settings/tmux.conf ~/.tmux.conf
 
+	# copy over aliases
         cp settings/bash_aliases ~/.bash_aliases
-        if grep -p '-f ~/.bash_aliases' ~/.bashrc; then
-                echo -e 'if [ -f ~/.bash_aliases ]; then\n\t. ~/.bash_aliases\nfi' >> ~/.bashrc
-        fi
+        echo "source ~/.bash_aliases" >> ~/.bashrc
 
         # set default editor to vim
         echo "export EDITOR='vim'" >> ~/.bashrc
@@ -68,6 +67,8 @@ build_binary(){
 
 	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
 	sudo make install
+	
+	echo "export PATH='/usr/local/bin:$PATH'" >> ~/.bashrc
 }
 
 
