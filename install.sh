@@ -13,6 +13,8 @@ Usage() {
 
 
 build_core(){
+	CWD=$PWD
+	
         # this still doesn't prove vim was compiled with python3 support
 	# probably should do this inevitably
 	VIM_VERSION=$(vim --version | head -1 | cut -d ' ' -f 5)
@@ -32,16 +34,16 @@ build_core(){
         sudo vim +PluginInstall +qall
 
 	# Copy over vim configuration
-	cd ~/settings && echo 'Copying personal vim settings...'
-	cp -R ./colors/. ~/.vim/colors/
-	cp ./vim.conf ~/.vimrc
+	echo 'Copying personal vim settings...'
+	cp $CWD/colors/* ~/.vim/colors/*
+	cp $CWD/vim.conf ~/.vimrc
 	sudo chown $(id -u):$(id -g) ~/.viminfo
 
 	# copy over tmux configuration
 	echo 'Copying personal tmux settings...'
-	cp ./tmux.conf ~/.tmux.conf
+	cp $CWD/tmux.conf ~/.tmux.conf
 
-	cp ./bash_aliases ~/.bash_aliases
+	cp $CWD/bash_aliases ~/.bash_aliases
 	if grep -p '-f ~/.bash_aliases' ~/.bashrc; then
 		echo -e 'if [ -f ~/.bash_aliases ]; then\n\t. ~/.bash_aliases\nfi' >> ~/.bashrc
 	fi
@@ -51,24 +53,20 @@ build_core(){
 	echo "export VISUAL='vim'" >> ~/.bashrc
 
 	source ~/.bashrc
-	cd ~
 }
 
 
 build_binary(){
 	# add library configure support here
-	echo 'Installing and removing dependencies...'
+	echo 'Installing dependencies...'
 	sudo apt-get install -y \
 		libncurses5-dev libgnome2-dev libgnomeui-dev \
 		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev
-
-	sudo apt remove -y \
-		vim vim-runtime gvim vim-tiny vim-common vim-gui-common vim-nox
-	
+		
 	sudo update -y
 
-	echo 'Reinstalling vim from github...'
+	echo 'Reinstalling Vim from Github...'
 	sudo rm -rf ~/.vim* ~/vim*
 	cd ~ &&	git clone https://github.com/vim/vim ~/.vim
 	cd ~/.vim && ./configure \
@@ -79,10 +77,10 @@ build_binary(){
 		--enable-gui=auto \
 		--enable-cscope \
 		--with-compiledby="amead24" \
-		--prefix=/usr/local
+		--prefix=$HOME/bin/vim
 
 	make
-	cd ~/vim && sudo make install
+	sudo make install
 }
 
 
