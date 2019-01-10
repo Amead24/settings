@@ -11,37 +11,6 @@ Usage() {
 }
 
 
-argparse(){
-while [ "$1" != "" ]; do
-        case $1 in
-                -b | --build-binary)
-                        echo 'Building vim binary with 8.1 and python3 support'
-                        build_binary
-                        shift
-                        ;;
-                -p | --build-python)
-                        echo 'Building python dependencies for vim'
-                        build_python
-                        shift
-                        ;;
-                -r | --build-rust)
-                        echo 'Building rustlang dependencies for vim'
-                        build_rust
-                        shift
-                        ;;
-                -c | --build-cpp)
-                        echo 'Building cpp dependencies for vim'
-                        shift
-                        ;;
-                *)
-                        Usage
-                        ;;
-        esac
-done
-build_core
-}
-
-
 build_core(){
         # Clone and install Vundle
         echo 'Downloading and Installing Vundle...'
@@ -118,4 +87,30 @@ build_cpp(){
 }
 
 
-argparse
+while [ "$1" != "" ]; do
+        case $1 in
+                -b | --build-binary)
+                        echo 'Building vim binary with 8.1 and python3 support'
+                        build_binary
+                        shift
+                        ;;
+                -p | --build-python)
+                        echo 'Building python dependencies for vim'
+                        build_python
+                        shift
+                        ;;
+                -r | --build-rust)
+                        echo 'Building rustlang dependencies for vim'
+                        build_rust
+                        shift
+                        ;;
+                -c | --build-cpp)
+                        echo 'Building cpp dependencies for vim'
+                        shift
+                        ;;
+                *)
+                        Usage
+                        ;;
+        esac
+done
+build_core
