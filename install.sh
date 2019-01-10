@@ -77,14 +77,7 @@ build_binary(){
 
 
 build_python(){
-	if ! dpkg -l | grep -q 'python'; then
-		sudo apt-get install python3 -y
-	fi
-	
-	if ! dpkg -l | grep -q pip3; then
-		sudo apt-get install python3-pip -y
-	fi
-	
+	pip install --upgrade pip
 	python3 -m pip install black flake8 isort
 }
 
