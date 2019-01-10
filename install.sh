@@ -14,7 +14,8 @@ Usage() {
 
 build_binary(){
 	sudo rm -rf ~/.vim* ~/vim*
-
+	sudo rm -rf /usr/local/share/vim /usr/bin/vim
+	
 	# add library configure support here
 	echo 'Installing and removing dependencies...'
 	sudo apt-get install -y \
@@ -22,18 +23,14 @@ build_binary(){
 		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev
 
-	sudo apt remove -y vim vim-runtime gvim
-	sudo apt remove -y vim-tiny vim-common vim-gui-common vim-nox
-	sudo upgrade
-
-	sudo rm -rf /usr/local/share/vim /usr/bin/vim
+	sudo apt remove -y \
+		vim vim-runtime gvim vim-tiny vim-common vim-gui-common vim-nox
+	
+	sudo upgrade -y
 
 	echo 'Cloning vim from github...'
-	cd ~
-	git clone https://github.com/vim/vim
-	cd vim
-
-	./configure \
+	cd ~ &&	git clone https://github.com/vim/vim ~/.vim
+	cd ~/.vim && ./configure \
 		--with-features=huge \
 		--enable-multibyte \
 		--enable-python3interp \
@@ -44,18 +41,13 @@ build_binary(){
 		--prefix=/usr/local
 
 	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
-	cd ~/vim
-	sudo make install
+	cd ~/vim && sudo make install
 }
 
 
 build_core(){
-	OS_VERSION=$(lsb_release -a | grep -c '18.04.1')
-	if [[ OS_VERSION -ne 1 ]]; then
-		echo 'The binary currently only supports Ubuntu 18+'
-		exit 111;
-	fi
-
+        # this still doesn't prove vim was compiled with python3 support
+	# probably should do this inevitably
 	VIM_VERSION=$(vim --version | head -1 | cut -d ' ' -f 5)
 	VIM_HAS_PYTHON3=$(vim --version | grep -c '+python3')
 	if [[ $VIM_VERSION != 8.1 || $VIM_HAS_PYTHON3 != "1" ]]; then
@@ -73,8 +65,7 @@ build_core(){
         sudo vim +PluginInstall +qall
 
 	# Copy over vim configuration
-	cd ~/settings
-	echo 'Copying personal vim settings...'
+	cd ~/settings && echo 'Copying personal vim settings...'
 	cp -R ./colors/. ~/.vim/colors/
 	cp ./vim.conf ~/.vimrc
 	sudo chown $(id -u):$(id -g) ~/.viminfo
@@ -85,9 +76,7 @@ build_core(){
 
 	cp ./bash_aliases ~/.bash_aliases
 	if grep -p '-f ~/.bash_aliases' ~/.bashrc; then
-		echo 'if [ -f ~/.bash_aliases ]; then' \
-		     '    . ~/.bash_aliases' \
-		     'fi' >> ~/.bashrc
+		echo -e 'if [ -f ~/.bash_aliases ]; then\n\t. ~/.bash_aliases\nfi' >> ~/.bashrc
 	fi
 
 	# set default editor to vim
@@ -95,7 +84,6 @@ build_core(){
 	echo "export VISUAL='vim'" >> ~/.bashrc
 
 	source ~/.bashrc
-
 	cd ~
 }
 
