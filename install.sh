@@ -26,7 +26,7 @@ build_binary(){
 	sudo apt remove -y \
 		vim vim-runtime gvim vim-tiny vim-common vim-gui-common vim-nox
 	
-	sudo upgrade -y
+	sudo update -y
 
 	echo 'Cloning vim from github...'
 	cd ~ &&	git clone https://github.com/vim/vim ~/.vim
