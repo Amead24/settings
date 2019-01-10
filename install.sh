@@ -1,5 +1,4 @@
 #!/bin/bash
-
 Usage() {
 	( echo "
 	-b | --build-binary : to create vim81 binary with python3
@@ -9,6 +8,38 @@ Usage() {
 	"
 	) 1>&2
 	exit 1
+}
+
+
+argparse(){
+while [ "$1" != "" ]; do
+        case $1 in
+                -b | --build-binary)
+                        echo 'Building vim binary with 8.1 and python3 support'
+                        build_binary
+                        shift
+                        ;;
+                -p | --build-python)
+                        echo 'Building python dependencies for vim'
+                        build_python
+                        shift
+                        ;;
+                -r | --build-rust)
+                        echo 'Building rustlang dependencies for vim'
+                        build_rust
+                        shift
+                        ;;
+                -c | --build-cpp)
+                        echo 'Building cpp dependencies for vim'
+                        shift
+                        ;;
+                *)
+                        Usage
+                        ;;
+        esac
+        shift
+done
+build_core
 }
 
 
@@ -88,32 +119,4 @@ build_cpp(){
 }
 
 
-while [ "$1" != "" ]; do
-	case $1 in
-		-b | --build-binary)
-			shift
-			echo 'Building vim binary with 8.1 and python3 support'
-			build_binary
-			;;
-		-p | --build-python)
-			shift
-			echo 'Building python dependencies for vim'
-			build_python
-			;;
-		-r | --build-rust)
-			shift
-			echo 'Building rustlang dependencies for vim'
-			build_rust
-			;;
-		-c | --build-cpp)
-			shift
-			echo 'Building cpp dependencies for vim'
-			;;
-		*)
-			Usage
-			;;
-	esac
-	shift
-done
-
-build_core
+argparse
