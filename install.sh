@@ -37,7 +37,6 @@ while [ "$1" != "" ]; do
                         Usage
                         ;;
         esac
-        shift
 done
 build_core
 }
