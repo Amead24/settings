@@ -68,9 +68,8 @@ build_binary(){
 		--enable-gui=auto \
 		--enable-cscope \
 		--with-compiledby="amead24" \
-		--prefix=/usr/local
 
-	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
+	make
 	sudo make install
 	
 	cd $REPO_DIR
