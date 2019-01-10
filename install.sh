@@ -78,7 +78,7 @@ build_binary(){
 
 build_python(){
 	pip install --upgrade pip
-	python3 -m pip install black flake8 isort
+	python -m pip install black flake8 isort
 }
 
 
