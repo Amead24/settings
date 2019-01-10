@@ -19,7 +19,7 @@ build_core(){
 	echo 'Downloading and Installing Vundle...'
 	cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-        sudo vim +PluginInstall +qall
+        vim +PluginInstall +qall
 
 	# Copy over vim configuration
 	echo 'Copying personal vim settings...'
@@ -68,9 +68,9 @@ build_binary(){
 		--enable-gui=auto \
 		--enable-cscope \
 		--with-compiledby="amead24" \
-		--prefix=$HOME/bin/vim
+		--prefix=/usr/local
 
-	make
+	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
 	sudo make install
 	
 	cd $REPO_DIR
