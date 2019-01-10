@@ -47,7 +47,9 @@ build_binary(){
 	echo 'Installing dependencies...'
 	sudo apt-get -y remove vim
 	sudo apt build-dep -y vim
-	sudo apt-get install libpython3.6
+	
+	# Python3.6 Support
+	sudo apt-get -y install python3.6-dev
 
 	echo 'Reinstalling Vim from Github...'
 	sudo rm -rf ~/.vim* ~/vim*
