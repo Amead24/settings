@@ -24,9 +24,10 @@ build_core(){
         cp settings/vim.conf ~/.vimrc
         sudo chown $(id -u):$(id -g) ~/.viminfo
 
-        # copy over tmux configuration
+        # copy over tmux configuration & keep color schemes
         echo 'Copying personal tmux settings...'
         cp settings/tmux.conf ~/.tmux.conf
+	echo "export TERM=screen-256color" >> ~/.bashrc
 
 	# copy over aliases
         cp settings/bash_aliases ~/.bash_aliases
