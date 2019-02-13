@@ -36,7 +36,8 @@ build_core(){
         # set default editor to vim
         echo "export EDITOR='vim'" >> ~/.bashrc
         echo "export VISUAL='vim'" >> ~/.bashrc
-
+	source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+	
         source ~/.bashrc && cd settings
 }
 
