@@ -21,14 +21,14 @@ build_core(){
         cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
         git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-        # Copy over vim configuration
         echo 'Copying personal vim settings...'
-	cp -R settings/colors/ ~/.vim/colors/
         cp settings/vim.conf ~/.vimrc
+        vim +PluginInstall +qall
+
+	# yay color
+	cp -R settings/colors/ ~/.vim/colors/
         sudo chown $(id -u):$(id -g) ~/.viminfo
 
-	# Install the plugins and source gruvbox
-        vim +PluginInstall +qall
 	source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
         # copy over tmux configuration & keep color schemes
