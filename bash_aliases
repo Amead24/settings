@@ -1,6 +1,7 @@
 alias pip=pip3
 alias python=python3
 alias tmux="tmux -2"
+alias gc="git clone https://github.com/"
 
 alias kc=kubectl
 

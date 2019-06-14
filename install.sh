@@ -12,17 +12,24 @@ Usage() {
 
 
 build_core(){
+	echo "Downloading and Installing Bash-it"
+	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+	bash ~/.bash_it/install.sh --silent
+
         # Clone and install Vundle
         echo 'Downloading and Installing Vundle...'
         cd ~ && rm -rf ~/.vim/bundle/Vundle.vim
         git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-        vim +PluginInstall +qall
 
         # Copy over vim configuration
         echo 'Copying personal vim settings...'
 	cp -R settings/colors/ ~/.vim/colors/
         cp settings/vim.conf ~/.vimrc
         sudo chown $(id -u):$(id -g) ~/.viminfo
+
+	# Install the plugins and source gruvbox
+        vim +PluginInstall +qall
+	source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
         # copy over tmux configuration & keep color schemes
         echo 'Copying personal tmux settings...'
@@ -36,7 +43,6 @@ build_core(){
         # set default editor to vim
         echo "export EDITOR='vim'" >> ~/.bashrc
         echo "export VISUAL='vim'" >> ~/.bashrc
-	source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 	
         source ~/.bashrc && cd settings
 }
