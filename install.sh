@@ -13,9 +13,10 @@ Usage() {
 
 
 build_core(){
-	echo "Downloading and Installing Bash-it"
-	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-	bash ~/.bash_it/install.sh --silent
+        CWD=$PWD
+        echo "Downloading and Installing Bash-it"
+        git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+        bash ~/.bash_it/install.sh --silent
 
         # Clone and install Vundle
         echo 'Downloading and Installing Vundle...'
@@ -23,29 +24,29 @@ build_core(){
         git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
         echo 'Copying personal vim settings...'
-        cp settings/vimrc ~/.vimrc
+        cp $CWD/settings/vimrc ~/.vimrc
         vim +PluginInstall +qall
 
-       # yay color
-        cp -R settings/colors/ ~/.vim/colors/
+        # yay color
+        cp -R $CWD/settings/colors/ ~/.vim/colors/
         sudo chown $(id -u):$(id -g) ~/.viminfo
 
         source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
         # copy over tmux configuration & keep color schemes
         echo 'Copying personal tmux settings...'
-        cp settings/tmux.conf ~/.tmux.conf
+        cp $CWD/settings/tmux.conf ~/.tmux.conf
         echo "export TERM=screen-256color" >> ~/.bashrc
 
         # copy over aliases
-        cp settings/bash_aliases ~/.bash_aliases
+        cp $CWD/settings/bash_aliases ~/.bash_aliases
         echo "source ~/.bash_aliases" >> ~/.bashrc
 
         # set default editor to vim
         echo "export EDITOR='vim'" >> ~/.bashrc
         echo "export VISUAL='vim'" >> ~/.bashrc
 
-        source ~/.bashrc && cd settings
+        source ~/.bashrc
 }
 
 
