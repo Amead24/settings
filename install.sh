@@ -1,6 +1,7 @@
 #!/bin/bash
 Usage() {
 	( echo "
+	-s | --simple       : only copy over rc files
 	-b | --build-binary : to create vim81 binary with python3
 	-p | --build-python : to create python dependencies for vim-python
 	-r | --build-rust   : to create rust depenencies for vim-rust
@@ -22,28 +23,28 @@ build_core(){
         git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
         echo 'Copying personal vim settings...'
-        cp settings/vim.conf ~/.vimrc
+        cp settings/vimrc ~/.vimrc
         vim +PluginInstall +qall
 
-	# yay color
-	cp -R settings/colors/ ~/.vim/colors/
+       # yay color
+        cp -R settings/colors/ ~/.vim/colors/
         sudo chown $(id -u):$(id -g) ~/.viminfo
 
-	source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+        source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
         # copy over tmux configuration & keep color schemes
         echo 'Copying personal tmux settings...'
         cp settings/tmux.conf ~/.tmux.conf
-	echo "export TERM=screen-256color" >> ~/.bashrc
+        echo "export TERM=screen-256color" >> ~/.bashrc
 
-	# copy over aliases
+        # copy over aliases
         cp settings/bash_aliases ~/.bash_aliases
         echo "source ~/.bash_aliases" >> ~/.bashrc
 
         # set default editor to vim
         echo "export EDITOR='vim'" >> ~/.bashrc
         echo "export VISUAL='vim'" >> ~/.bashrc
-	
+
         source ~/.bashrc && cd settings
 }
 
